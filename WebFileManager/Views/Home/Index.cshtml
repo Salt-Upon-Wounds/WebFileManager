@@ -1,0 +1,27 @@
+﻿@model IEnumerable<WebFileManager.Models.FileModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <form>
+        <button data="file">Upload File</button>
+        <button type="submit"></button>
+    </form>
+    <h2>Files</h2>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Filename)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
