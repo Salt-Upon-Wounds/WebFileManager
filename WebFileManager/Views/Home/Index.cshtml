@@ -21,11 +21,15 @@
     <h2>Files</h2>
     <table class="table">
         <tr>
+            <th>Id</th>
             <th>Name</th>
         </tr>
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Filename)
                 </td>

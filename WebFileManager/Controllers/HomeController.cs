@@ -43,7 +43,8 @@ namespace WebFileManager.Controllers
             }
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
-            return Ok(new { count = files.Count, filePaths });
+            // return Ok(new { count = files.Count, filePaths });
+            return View();
         }
 
         public IActionResult Privacy()
