@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Add(new ServiceDescriptor(typeof(DataContext), new DataContext(builder.Configuration.GetConnectionString("Default"))));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
 var app = builder.Build();
 
