@@ -36,15 +36,10 @@ namespace WebFileManager.Controllers
             {
                 if (formFile.Length > 0)
                 {
-                    // full path to file in temp location
-                    //var filePath = Path.Combine(_environment.WebRootPath, "files", formFile.Name);
                     context.UploadFile(formFile);
                 }
             }
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-            // return Ok(new { count = files.Count, filePaths });
-            return View();
+            return View(context.GetAllFileNames());
         }
 
         public IActionResult Privacy()

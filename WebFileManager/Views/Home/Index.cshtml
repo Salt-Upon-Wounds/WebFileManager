@@ -28,10 +28,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @item.Id
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Filename)
+                    <a asp-controller="Read" asp-action="Index" asp-route-id="@item.Id">@item.Filename</a>
                 </td>
             </tr>
         }

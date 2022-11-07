@@ -1,0 +1,64 @@
+﻿@model WebFileManager.Models.RenderModel
+@{
+    ViewData["Title"] = "Home Page";
+    var curr_class = Model.Classes.First(x => x.Id == Model.Rows[0].IdClass);
+    var curr_sheet = Model.Sheets.First(x => x.Id == curr_class.IdSheet);
+}
+
+<div class="text-center">
+    <h1 class="display-4">@curr_sheet.Name</h1>
+    <h2 class="display-4">@curr_class.Name</h2>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Col1</th>
+            <th>Col2</th>
+            <th>Col3</th>
+            <th>Col4</th>
+            <th>Col5</th>
+            <th>Col6</th>
+        </tr>
+        @foreach (var item in Model.Rows)
+        {
+            <tr>
+                <td>
+                    @item.IdInFile
+                </td>
+                <td>
+                    @item.Col1
+                </td>
+                <td>
+                    @item.Col2
+                </td>
+                <td>
+                    @item.Col3
+                </td>
+                <td>
+                    @item.Col4
+                </td>
+                <td>
+                    @item.Col5
+                </td>
+                <td>
+                    @item.Col6
+                </td>
+            </tr>
+        }
+    </table>
+    <ul class="hr">
+        @foreach(var sheet in Model.Sheets)
+        {
+            <li><a asp-action="Index" asp-route-id="@Model.FileId" asp-route-sheet_id="@sheet.Id">@sheet.Name</a></li>
+        }
+    </ul>
+    <ul class="hr">
+        @{
+            int i = 1;
+        }
+        @foreach (var cl in Model.Classes)
+        {
+            <li><a asp-action="Index" asp-route-id="@Model.FileId" asp-route-sheet_id="@cl.IdSheet" asp-route-class_id="@cl.Id">@i</a></li>
+            i++;
+        }
+    </ul>
+</div>

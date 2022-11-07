@@ -43,6 +43,70 @@ namespace WebFileManager.Models
             return list;
         }
 
+       
+        public RenderModel RenderData(int file_id, int? curr_sheet = null, int? curr_class = null)
+        {
+            RenderModel renderModel = new RenderModel();
+            renderModel.FileId = file_id;
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+
+                string sql = "SELECT id, name, id_file FROM webtest.sheets WHERE id_file = " + file_id;
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                MySqlDataReader reader = command.ExecuteReader();
+                renderModel.Sheets = new List<SheetModel>();
+                while (reader.Read())
+                {
+                    renderModel.Sheets.Add(new SheetModel()
+                    {
+                        Id = (int)reader[0],
+                        Name = reader[1].ToString(),
+                        IdInFile = (int)reader[2]
+                    });
+                }
+                
+                reader.Close(); 
+
+                sql = "SELECT id, name, id_sheet FROM webtest.classes WHERE id_sheet = " + (curr_sheet ?? renderModel.Sheets[0].Id);
+                command = new MySqlCommand(sql, conn);
+                reader = command.ExecuteReader();
+                renderModel.Classes = new List<ClassModel>();
+                while (reader.Read())
+                {
+                    renderModel.Classes.Add(new ClassModel()
+                    {
+                        Id = (int)reader[0],
+                        Name = reader[1].ToString(),
+                        IdSheet = (int)reader[2]
+                    });
+                } 
+
+                reader.Close();
+
+                sql = "SELECT id_in_file, col1, col2, col3, col4, col5, col6, id_class FROM webtest.tbl WHERE id_class = " + (curr_class ?? renderModel.Classes[0].Id);
+                command = new MySqlCommand(sql, conn);
+                reader = command.ExecuteReader();
+                renderModel.Rows = new List<RowModel>();
+                while (reader.Read())
+                {
+                    renderModel.Rows.Add(new RowModel()
+                    {
+                        IdInFile = reader[0].ToString(),
+                        Col1 = reader[1].ToString(),
+                        Col2 = reader[2].ToString(),
+                        Col3 = reader[3].ToString(),
+                        Col4 = reader[4].ToString(),
+                        Col5 = reader[5].ToString(),
+                        Col6 = reader[6].ToString(),
+                        IdClass = (int)reader[7]
+                    });
+                }
+                
+                reader.Close();
+            }
+            return renderModel;
+        }
         //алгоритм можно оптимизировать, чтобы быстрее работал
         public void UploadFile(IFormFile file)
         {
