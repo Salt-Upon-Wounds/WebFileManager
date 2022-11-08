@@ -52,7 +52,7 @@ namespace WebFileManager.Models
             {
                 conn.Open();
 
-                string sql = "SELECT id, name, id_file FROM webtest.sheets WHERE id_file = " + file_id;
+                string sql = "SELECT id, name, id_file FROM sheets WHERE id_file = " + file_id;
                 MySqlCommand command = new MySqlCommand(sql, conn);
                 MySqlDataReader reader = command.ExecuteReader();
                 renderModel.Sheets = new List<SheetModel>();
@@ -68,7 +68,7 @@ namespace WebFileManager.Models
                 
                 reader.Close(); 
 
-                sql = "SELECT id, name, id_sheet FROM webtest.classes WHERE id_sheet = " + (curr_sheet ?? renderModel.Sheets[0].Id);
+                sql = "SELECT id, name, id_sheet FROM classes WHERE id_sheet = " + (curr_sheet ?? renderModel.Sheets[0].Id);
                 command = new MySqlCommand(sql, conn);
                 reader = command.ExecuteReader();
                 renderModel.Classes = new List<ClassModel>();
@@ -84,7 +84,7 @@ namespace WebFileManager.Models
 
                 reader.Close();
 
-                sql = "SELECT id_in_file, col1, col2, col3, col4, col5, col6, id_class FROM webtest.tbl WHERE id_class = " + (curr_class ?? renderModel.Classes[0].Id);
+                sql = "SELECT id_in_file, col1, col2, col3, col4, col5, col6, id_class FROM tbl WHERE id_class = " + (curr_class ?? renderModel.Classes[0].Id);
                 command = new MySqlCommand(sql, conn);
                 reader = command.ExecuteReader();
                 renderModel.Rows = new List<RowModel>();
