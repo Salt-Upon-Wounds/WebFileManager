@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace WebFileManager.Models
 {
+    /// <summary>
+    /// Класс для чтения и записи данных из базы данных
+    /// </summary>
     public class DataContext
     {
         public string ConnectionString { get; set; }
